@@ -6,20 +6,27 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+/*
+ * Asosiy seeder: `php artisan db:seed` (yoki `migrate:fresh --seed`) shuni ishga tushiradi.
+ */
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Kirish uchun tayyor akkaunt (paroli factory'da: "password")
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        User::factory(4)->create();
+
+        // Tartib muhim: post uchun avval user va kategoriya bo'lishi kerak
+        $this->call([
+            CategorySeeder::class,
+            PostSeeder::class,
         ]);
     }
 }
