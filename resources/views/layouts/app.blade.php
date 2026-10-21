@@ -15,17 +15,26 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
+                <header class="bg-white shadow">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
+
+            {{-- Flash xabar: controllerdagi ->with('success', ...) (Django: {% for message in messages %}) --}}
+            @if (session('success'))
+                <div class="max-w-4xl mx-auto mt-6 px-4 sm:px-6 lg:px-8">
+                    <div class="rounded-md bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-800">
+                        {{ session('success') }}
+                    </div>
+                </div>
+            @endif
 
             <!-- Page Content -->
             <main>
